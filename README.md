@@ -4,13 +4,13 @@ BY DOWNLOADING THE CODE OR USING THE SERVICE AND/OR SOFTWARE APPLICATION ACCOMPA
 
 "Copyright 2024. The authors and University of Zurich. All Rights Reserved."
 
-# Pythia 
+# Pythia
 
 <img src="assets/Landing/Logo/pythia_white_background.png" alt="Pythia logo" width="150"/>
 
 [![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-360/)
 [![Docker](https://img.shields.io/badge/docker-supported-blue.svg)](https://www.docker.com/)
-[![DOI](https://zenodo.org/badge/1220804899.svg)](https://doi.org/10.5281/zenodo.19762869)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19762869.svg)](https://doi.org/10.5281/zenodo.19762869)
 
 
 
