@@ -10,6 +10,9 @@ BY DOWNLOADING THE CODE OR USING THE SERVICE AND/OR SOFTWARE APPLICATION ACCOMPA
 
 [![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-360/)
 [![Docker](https://img.shields.io/badge/docker-supported-blue.svg)](https://www.docker.com/)
+[![DOI](https://zenodo.org/badge/1220804899.svg)](https://doi.org/10.5281/zenodo.19762869)
+
+
 
 Pythia is a web-based tool for designing CRISPR-Cas9 gRNAs and microhomology-based repair templates, using deep learning to predict precise editing outcomes. It covers three workflows — targeted transgene integration, single-nucleotide editing, and N/C-terminal gene tagging — and works with any species; pre-calculated genome-wide databases are provided for *Homo sapiens*, *Mus musculus*, and *Xenopus tropicalis*. Pythia is freely available at [pythia-editing.org](https://pythia-editing.org) or can be run locally via Docker for faster computation and full data privacy.
 
