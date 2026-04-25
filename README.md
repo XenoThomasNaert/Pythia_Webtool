@@ -4,15 +4,13 @@ BY DOWNLOADING THE CODE OR USING THE SERVICE AND/OR SOFTWARE APPLICATION ACCOMPA
 
 "Copyright 2024. The authors and University of Zurich. All Rights Reserved."
 
-# Pythia
+# Pythia 
 
 <img src="assets/Landing/Logo/pythia_white_background.png" alt="Pythia logo" width="150"/>
 
 [![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-360/)
 [![Docker](https://img.shields.io/badge/docker-supported-blue.svg)](https://www.docker.com/)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19762869.svg)](https://doi.org/10.5281/zenodo.19762869)
-
-
 
 Pythia is a web-based tool for designing CRISPR-Cas9 gRNAs and microhomology-based repair templates, using deep learning to predict precise editing outcomes. It covers three workflows — targeted transgene integration, single-nucleotide editing, and N/C-terminal gene tagging — and works with any species; pre-calculated genome-wide databases are provided for *Homo sapiens*, *Mus musculus*, and *Xenopus tropicalis*. Pythia is freely available at [pythia-editing.org](https://pythia-editing.org) or can be run locally via Docker for faster computation and full data privacy.
 
@@ -37,8 +35,9 @@ Pythia is a web-based tool for designing CRISPR-Cas9 gRNAs and microhomology-bas
 
 - Windows 10 / Windows 11
 - macOS
+- Linux (x86_64, via Docker — not formally tested)
 
-> The application is expected to work on Linux via Docker, but has not been formally tested on that platform.
+
 
 ### Non-standard hardware
 
@@ -59,24 +58,113 @@ None required. A standard desktop or laptop is sufficient.
 >
 > The whole thing is done through **Docker Desktop, a normal point-and-click application — no terminal, no code**. Master's students with no prior experience installed it in under 10 minutes. If they can do it, you can too.
 
-**Prerequisites:** [Docker Desktop](https://docs.docker.com/get-docker/) installed and running.
+Pythia is distributed as a Docker image (`linux/amd64`). The image is **~4 GB** — make sure you have at least **10 GB free disk space**. Install time is typically **10–20 minutes** depending on your internet speed.
 
-> **Note:** The Docker image is approximately **2.1 GB** to download (~6 GB on disk once installed). Allow **10–30 minutes** to pull it depending on your internet connection.
+---
 
-Now install via either the desktop GUI (option 1) or via the Command line (option 2). We recommend using the GUI for non-power-users.
+#### 🪟 Windows (Intel/AMD)
 
-#### Option 1 (RECOMMENDED): Via Docker Desktop (GUI — no terminal needed)
+**1. Install Docker Desktop**
 
-1. Open **Docker Desktop**.
-2. In the search bar at the top, search for `thomasnaert/pythia_webtool`.
-3. Click **Pull** to download the image (~2.1 GB download, ~6 GB on disk, allow 10–30 minutes).
-4. Once downloaded, go to the **Images** tab, find `pythia`, and click **Run**.
-5. Expand **Optional settings** and set:
-   - **Host port:** `8050`
-6. Click **Run**. The container starts in seconds.
-7. Open [http://localhost:8050](http://localhost:8050) in your browser.
+- Download from [https://www.docker.com/products/docker-desktop](https://www.docker.com/products/docker-desktop)
+- Run the installer and accept the defaults. WSL 2 will be installed automatically if not present.
+- Reboot if prompted.
+- Launch Docker Desktop from the Start menu and wait until the whale icon in the system tray says "Docker Desktop is running."
 
-> **Included in the image:** Full transcript sequence databases + a **sample** gRNA database (~100 rows per species). The Editing and Integration tools are fully functional out of the box. The Pre-calculated Tagging browser will only return results for genes present in the sample database — download the full gRNA databases from Zenodo and mount them to unlock the complete gene catalogue (see [Mounting the full gRNA databases](#instructions-for-mounting-databases-from-zenodo)).
+**2. Pull the Pythia image**
+
+Open Command Prompt or PowerShell and run:
+
+```cmd
+docker pull thomasnaert/pythia_webtool:latest
+```
+
+**3. Run Pythia**
+
+```cmd
+docker run -p 8050:8050 thomasnaert/pythia_webtool:latest
+```
+
+**4. Open Pythia in your browser**
+
+Go to [http://localhost:8050](http://localhost:8050) — Pythia is now running.
+
+To stop it, return to the terminal and press `Ctrl + C`.
+
+---
+
+#### 🍎 macOS (Apple Silicon — M1/M2/M3/M4)
+
+Pythia's image is built for `linux/amd64`. On Apple Silicon Macs it runs transparently via **Rosetta 2 emulation** — no functional differences, slight startup overhead only.
+
+**1. Install Rosetta 2**
+
+Open Terminal (`Cmd + Space` → "Terminal" → Enter) and run:
+
+```bash
+softwareupdate --install-rosetta --agree-to-license
+```
+
+If Rosetta is already installed, it will tell you. Otherwise it installs in ~30 seconds.
+
+**2. Install Docker Desktop**
+
+- Download the **Apple Silicon** version from [https://www.docker.com/products/docker-desktop](https://www.docker.com/products/docker-desktop)
+- Open the `.dmg` and drag Docker to Applications
+- Launch Docker Desktop from Applications and wait until the whale icon in the menu bar stops animating
+
+**3. Enable Rosetta emulation in Docker Desktop**
+
+This step is essential for Pythia to run.
+
+- Click the Docker whale icon → **Settings** (gear icon)
+- Go to **General**
+- Under **Virtual Machine Options**, select **Apple Virtualization framework**
+- Tick **"Use Rosetta for x86_64/amd64 emulation on Apple Silicon"**
+- Click **Apply & Restart**
+
+**4. Pull the Pythia image**
+
+```bash
+docker pull --platform linux/amd64 thomasnaert/pythia_webtool:latest
+```
+
+**5. Run Pythia**
+
+```bash
+docker run --platform linux/amd64 -p 8050:8050 thomasnaert/pythia_webtool:latest
+```
+
+**6. Open Pythia in your browser**
+
+Go to [http://localhost:8050](http://localhost:8050) — Pythia is now running.
+
+To stop it, press `Ctrl + C` in Terminal.
+
+---
+
+#### Linux (x86_64)
+
+Install Docker following your distribution's instructions ([https://docs.docker.com/engine/install/](https://docs.docker.com/engine/install/)), then:
+
+```bash
+docker pull thomasnaert/pythia_webtool:latest
+docker run -p 8050:8050 thomasnaert/pythia_webtool:latest
+```
+
+Open [http://localhost:8050](http://localhost:8050) in your browser.
+
+---
+
+#### Mounting the full precomputed databases
+
+The image includes sample databases sufficient to demonstrate all tools out of the box. To use the full genome-wide Pre-calculated Tagging browser, download the species databases from Zenodo and mount them at runtime:
+
+```bash
+docker run -p 8050:8050 -v /path/to/databases:/app/db thomasnaert/pythia_webtool:latest
+```
+
+Replace `/path/to/databases` with the local path to the folder containing the unzipped `.db` files. On Windows use a path like `C:\Users\you\pythia_db` (Docker Desktop translates this automatically).
 
 | # | Species | Record |
 |---|---------|--------|
@@ -84,20 +172,6 @@ Now install via either the desktop GUI (option 1) or via the Command line (optio
 | 2 | *Homo sapiens* | Intronic precomputed Pythia predictions — [10.5281/zenodo.19485095](https://doi.org/10.5281/zenodo.19485095) |
 | 3 | *Mus musculus* | Precomputed Pythia predictions — [10.5281/zenodo.19485175](https://doi.org/10.5281/zenodo.19485175) |
 | 4 | *Xenopus tropicalis* | Precomputed Pythia predictions — [10.5281/zenodo.19485132](https://doi.org/10.5281/zenodo.19485132) |
-
-#### Option 2 (more advanced) - Via command line
-
-```bash
-# Pull the image
-docker pull thomasnaert/pythia_webtool:latest
-
-# Launch
-docker run -p 8050:8050 thomasnaert/pythia_webtool:latest
-```
-
-Open [http://localhost:8050](http://localhost:8050) in your browser.
-
-**Typical time to first launch:** 10–30 minutes (download) + under 30 seconds (startup).
 
 ---
 
@@ -143,7 +217,7 @@ Full dependency list with exact pinned versions: [`requirements.txt`](requiremen
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/XenoThomasNaert/Pythia_Webtool_v1.git
+git clone https://github.com/XenoThomasNaert/Pythia_Webtool.git
 cd pythia
 
 # 2. Download db/ and transcript_sequences/ from Zenodo and place them here
