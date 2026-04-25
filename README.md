@@ -23,7 +23,7 @@ Pythia is a web-based tool for designing CRISPR-Cas9 gRNAs and microhomology-bas
 - [System Requirements](#system-requirements)
 - [Installation Guide](#installation-guide)
 - [Usage Examples](#usage-examples)
-- [Instructions for Use](#instructions-for-use)
+- [Instructions for mounting databases from Zenodo](#instructions-for-mounting-databases-from-zenodo)
 - [Repository Structure](#repository-structure)
 - [License](#license)
 
@@ -307,7 +307,7 @@ The Custom Tagging tool designs gRNAs and repair templates for N- or C-terminal 
 
 ### Example 4 — Pre-calculated Tagging browser *(requires full databases)*
 
-Download the full gRNA databases from Zenodo and mount them as described in [Instructions for Use](#instructions-for-use):
+Download the full gRNA databases from Zenodo and mount them as described in [Instructions for mounting databases from Zenodo](#instructions-for-mounting-databases-from-zenodo):
 
 | # | Species | Record |
 |---|---------|--------|
