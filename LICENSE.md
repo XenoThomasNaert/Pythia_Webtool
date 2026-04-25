@@ -1,4 +1,4 @@
-Copyright 2024. The authors and University of Zurich. All Rights Reserved.
+Copyright 2024. The authors, University of Zurich, and Ghent University. All Rights Reserved.
 
 BY DOWNLOADING THE CODE OR USING THE SERVICE AND/OR SOFTWARE APPLICATION ACCOMPANYING THIS LICENSE, YOU ARE CONSENTING TO BE BOUND BY ALL OF THE TERMS OF THIS LICENSE.
 

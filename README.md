@@ -2,7 +2,7 @@
 
 BY DOWNLOADING THE CODE OR USING THE SERVICE AND/OR SOFTWARE APPLICATION ACCOMPANYING THIS LICENSE, YOU ARE CONSENTING TO BE BOUND BY ALL OF THE TERMS OF THIS LICENSE AT THE BOTTOM OF THIS README
 
-"Copyright 2024. The authors and University of Zurich. All Rights Reserved."
+"Copyright 2024. The authors, University of Zurich, and Ghent University. All Rights Reserved."
 
 # Pythia 
 
@@ -460,7 +460,7 @@ Pythia builds on the following tools — please cite them if relevant to your wo
 
 BY DOWNLOADING THE CODE OR USING THE SERVICE AND/OR SOFTWARE APPLICATION ACCOMPANYING THIS LICENSE, YOU ARE CONSENTING TO BE BOUND BY ALL OF THE TERMS OF THIS LICENSE
 
-"Copyright 2024. The authors and University of Zurich. All Rights Reserved."
+"Copyright 2024. The authors, University of Zurich, and Ghent University. All Rights Reserved."
 
 The software is being provided as a service for research, educational, instructional and non-commercial purposes only. By submitting jobs to Pythia you agree to the terms and conditions herein.
 
