@@ -94,8 +94,8 @@ To stop it, go to the **Containers** tab in Docker Desktop and click the stop bu
 Open Command Prompt or PowerShell and run:
 
 ```cmd
-docker pull thomasnaert/pythia_webtool:latest
-docker run -p 8050:8050 thomasnaert/pythia_webtool:latest
+docker pull thomasnaert/pythia_webtool:v1.0.0
+docker run -p 8050:8050 thomasnaert/pythia_webtool:v1.0.0
 ```
 
 Open [http://localhost:8050](http://localhost:8050) in your browser. To stop, press `Ctrl + C`.
@@ -135,13 +135,13 @@ This step is essential for Pythia to run.
 **4. Pull the Pythia image**
 
 ```bash
-docker pull --platform linux/amd64 thomasnaert/pythia_webtool:latest
+docker pull --platform linux/amd64 thomasnaert/pythia_webtool:v1.0.0
 ```
 
 **5. Run Pythia**
 
 ```bash
-docker run --platform linux/amd64 -p 8050:8050 thomasnaert/pythia_webtool:latest
+docker run --platform linux/amd64 -p 8050:8050 thomasnaert/pythia_webtool:v1.0.0
 ```
 
 **6. Open Pythia in your browser**
@@ -157,8 +157,8 @@ To stop it, press `Ctrl + C` in Terminal.
 Install Docker following your distribution's instructions ([https://docs.docker.com/engine/install/](https://docs.docker.com/engine/install/)), then:
 
 ```bash
-docker pull thomasnaert/pythia_webtool:latest
-docker run -p 8050:8050 thomasnaert/pythia_webtool:latest
+docker pull thomasnaert/pythia_webtool:v1.0.0
+docker run -p 8050:8050 thomasnaert/pythia_webtool:v1.0.0
 ```
 
 Open [http://localhost:8050](http://localhost:8050) in your browser.
@@ -170,7 +170,7 @@ Open [http://localhost:8050](http://localhost:8050) in your browser.
 The image includes sample databases sufficient to demonstrate all tools out of the box. To use the full genome-wide Pre-calculated Tagging browser, download the species databases from Zenodo and mount them at runtime:
 
 ```bash
-docker run -p 8050:8050 -v /path/to/databases:/app/db thomasnaert/pythia_webtool:latest
+docker run -p 8050:8050 -v /path/to/databases:/app/db thomasnaert/pythia_webtool:v1.0.0
 ```
 
 Replace `/path/to/databases` with the local path to the folder containing the unzipped `.db` files. On Windows use a path like `C:\Users\you\pythia_db` (Docker Desktop translates this automatically).
@@ -227,7 +227,7 @@ Full dependency list with exact pinned versions: [`requirements.txt`](requiremen
 ```bash
 # 1. Clone the repository
 git clone https://github.com/XenoThomasNaert/Pythia_Webtool.git
-cd pythia
+cd Pythia_Webtool
 
 # 2. Download db/ and transcript_sequences/ from Zenodo and place them here
 
@@ -342,19 +342,19 @@ After downloading the full `db/` folder from Zenodo, mount it at runtime:
 # Windows (PowerShell)
 docker run -p 8050:8050 `
   -v C:\path\to\your\db:/app/db `
-  thomasnaert/pythia_webtool:latest
+  thomasnaert/pythia_webtool:v1.0.0
 ```
 
 ```bash
 # Linux / macOS
 docker run -p 8050:8050 \
   -v /path/to/your/db:/app/db \
-  thomasnaert/pythia_webtool:latest
+  thomasnaert/pythia_webtool:v1.0.0
 ```
 
 ### Docker Desktop (GUI)
 
-1. Go to the **Images** tab, find `pythia`, and click **Run**.
+1. Go to the **Images** tab, find `pythia_webtool`, and click **Run**.
 2. Expand **Optional settings**.
 3. Set **Host port** to `8050`.
 4. Under **Volumes**, add a bind mount:
