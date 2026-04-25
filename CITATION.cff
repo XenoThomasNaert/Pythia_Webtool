@@ -1,0 +1,77 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using the metadata below."
+type: software
+title: Pythia
+abstract: >
+  Web-based tool for designing CRISPR-Cas9 gRNAs and microhomology-based repair
+  templates using deep-learning-predicted repair outcomes. Covers targeted transgene
+  integration, single-nucleotide editing, and N/C-terminal gene tagging.
+authors:
+  - family-names: Naert
+    given-names: Thomas
+    orcid: https://orcid.org/0000-0003-3543-2519
+    affiliation: Ghent University
+  - family-names: Yamamoto
+    given-names: Taiyo
+    orcid: https://orcid.org/0000-0002-0305-8465
+    affiliation: University of Zurich
+  - family-names: Lienkamp
+    given-names: Soeren Sten
+    orcid: https://orcid.org/0000-0003-2963-6865
+    affiliation: "University of Zurich, Institute of Anatomy"
+  - family-names: Vromant
+    given-names: Koen
+    orcid: https://orcid.org/0009-0002-8560-2360
+    affiliation: Ghent University
+  - family-names: Röck
+    given-names: Ruth
+    orcid: https://orcid.org/0000-0001-5247-4951
+    affiliation: "University of Zurich, Institute of Anatomy"
+repository-code: https://github.com/XenoThomasNaert/Pythia_Webtool_v1
+url: https://pythia-editing.org
+license: other
+keywords:
+  - CRISPR-Cas9
+  - genome editing
+  - microhomology
+  - repair template
+  - gRNA design
+  - deep learning
+  - transgene integration
+  - gene tagging
+preferred-citation:
+  type: article
+  title: "Precise, predictable genome integrations by deep-learning-assisted design of microhomology-based templates"
+  authors:
+    - family-names: Naert
+      given-names: Thomas
+      orcid: https://orcid.org/0000-0003-3543-2519
+    - family-names: Yamamoto
+      given-names: Taiyo
+      orcid: https://orcid.org/0000-0002-0305-8465
+    - family-names: Han
+      given-names: S.
+    - family-names: Röck
+      given-names: R.
+    - family-names: Horn
+      given-names: M.
+    - family-names: Bethge
+      given-names: P.
+    - family-names: Vladimirov
+      given-names: N.
+    - family-names: Voigt
+      given-names: F. F.
+    - family-names: Figueiro-Silva
+      given-names: J.
+    - family-names: Bachmann-Gagescu
+      given-names: R.
+    - family-names: Vleminckx
+      given-names: K.
+    - family-names: Helmchen
+      given-names: F.
+    - family-names: Lienkamp
+      given-names: Soeren S.
+      orcid: https://orcid.org/0000-0003-2963-6865
+  journal: Nature Biotechnology
+  year: 2025
+  doi: 10.1038/s41587-025-02771-0

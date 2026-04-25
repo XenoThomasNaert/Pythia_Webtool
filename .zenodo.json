@@ -1,0 +1,54 @@
+{
+  "title": "Pythia: CRISPR-Cas9 gRNA and microhomology repair template design tool",
+  "description": "Web-based tool for designing CRISPR-Cas9 gRNAs and microhomology-based repair templates using deep-learning-predicted repair outcomes. Covers targeted transgene integration, single-nucleotide editing, and N/C-terminal gene tagging across any species, with pre-calculated genome-wide databases for Homo sapiens, Mus musculus, and Xenopus tropicalis.",
+  "upload_type": "software",
+  "creators": [
+    {
+      "name": "Naert, Thomas",
+      "affiliation": "Ghent University",
+      "orcid": "0000-0003-3543-2519"
+    },
+    {
+      "name": "Yamamoto, Taiyo",
+      "affiliation": "University of Zurich",
+      "orcid": "0000-0002-0305-8465"
+    },
+    {
+      "name": "Lienkamp, Soeren Sten",
+      "affiliation": "University of Zurich, Institute of Anatomy",
+      "orcid": "0000-0003-2963-6865"
+    },
+    {
+      "name": "Vromant, Koen",
+      "affiliation": "Ghent University",
+      "orcid": "0009-0002-8560-2360"
+    },
+    {
+      "name": "Röck, Ruth",
+      "affiliation": "University of Zurich, Institute of Anatomy",
+      "orcid": "0000-0001-5247-4951"
+    }
+  ],
+  "keywords": [
+    "CRISPR-Cas9",
+    "genome editing",
+    "microhomology",
+    "repair template",
+    "gRNA design",
+    "deep learning",
+    "transgene integration",
+    "gene tagging",
+    "inDelphi"
+  ],
+  "license": "other-open",
+  "related_identifiers": [
+    {
+      "identifier": "10.1038/s41587-025-02771-0",
+      "relation": "isDescribedBy",
+      "scheme": "doi",
+      "resource_type": "publication-article"
+    }
+  ],
+  "communities": [],
+  "grants": []
+}
