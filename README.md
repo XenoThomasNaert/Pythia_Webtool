@@ -71,25 +71,29 @@ Pythia is distributed as a Docker image (`linux/amd64`). The image is **~4 GB** 
 - Reboot if prompted.
 - Launch Docker Desktop from the Start menu and wait until the whale icon in the system tray says "Docker Desktop is running."
 
-**2. Pull the Pythia image**
+**2a. Option 1 (RECOMMENDED) — Via Docker Desktop GUI (no terminal needed)**
+
+1. Open **Docker Desktop**.
+2. In the search bar at the top, search for `thomasnaert/pythia_webtool`.
+3. Click **Pull** to download the image (~4 GB, allow 10–20 minutes).
+4. Once downloaded, go to the **Images** tab, find `pythia_webtool`, and click **Run**.
+5. Expand **Optional settings** and set:
+   - **Host port:** `8050`
+6. Click **Run**. The container starts in seconds.
+7. Open [http://localhost:8050](http://localhost:8050) in your browser.
+
+To stop it, go to the **Containers** tab in Docker Desktop and click the stop button.
+
+**2b. Option 2 — Via command line**
 
 Open Command Prompt or PowerShell and run:
 
 ```cmd
 docker pull thomasnaert/pythia_webtool:latest
-```
-
-**3. Run Pythia**
-
-```cmd
 docker run -p 8050:8050 thomasnaert/pythia_webtool:latest
 ```
 
-**4. Open Pythia in your browser**
-
-Go to [http://localhost:8050](http://localhost:8050) — Pythia is now running.
-
-To stop it, return to the terminal and press `Ctrl + C`.
+Open [http://localhost:8050](http://localhost:8050) in your browser. To stop, press `Ctrl + C`.
 
 ---
 
