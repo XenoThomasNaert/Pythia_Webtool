@@ -34,10 +34,11 @@ Pythia is a web-based tool for designing CRISPR-Cas9 gRNAs and microhomology-bas
 ### Operating systems tested
 
 - Windows 10 / Windows 11
-- macOS (Apple Silicon and Intel)
+- macOS (Apple Silicon — M1/M2/M3/M4)
 
 ### Operating systems expected to work
 
+- macOS (Intel, via Docker)
 - Linux (x86_64, via Docker)
 
 
