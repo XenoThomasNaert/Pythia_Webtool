@@ -1,0 +1,30 @@
+# Pre-designed Tagging for 3' Exons
+
+
+
+Use this workflow for C-terminal protein tagging with pre-validated gRNAs and optimized repair templates for common model organism genes.
+
+## Choose Your Tagging Strategy
+
+Pythia offers three tagging modes, each optimized for different genomic contexts:
+
+### Exon 3bp mode
+Direct tagging of the terminal exon using 3-bp microhomology repeats. Preserves native 3' UTR. Residual repeats add at most 1-4 amino acid scars in the coding sequence (often less).
+
+### Exon 6bp mode
+Direct tagging of the terminal exon using 6-bp microhomology repeats. Preserves native 3' UTR. Often achieves higher integration efficiency but residual repeats add at most 2-8 amino acid scars in the coding sequence (often less).
+
+### Intron mode
+Tags via intron targeting with terminal exon replacement. Achieves scarless tagging in a synthetic linker but sacrifices native 3' UTR regulatory elements. Requires adding a splice acceptor and polyadenylation sequence.
+
+---
+
+## Configure Your Design
+
+**Species**: Select your target organism (e.g., *Xenopus tropicalis*, *Mus musculus*, *Homo sapiens*)
+
+**InDelphi Model**: Select the repair prediction model matching your experimental system (e.g., mESC for early embryos, HEK293T for human cell culture)
+
+**Gene**: Enter the gene name or symbol for your target protein (e.g., myh9, acta2, tubb2a)
+
+**Transcript**: Select the specific transcript isoform you wish to tag. For genes with multiple isoforms, choose the isoform relevant to your biological context.

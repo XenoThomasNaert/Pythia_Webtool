@@ -1,0 +1,63 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environment
+.venv/
+venv/
+ENV/
+env/
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Project specific
+*.log
+*.tmp
+temp/
+.claude/
+
+# Sample databases (100-row versions) ARE committed to db/ and transcript_sequences/.
+# To exclude only the full-size databases, name them with a _full suffix, e.g.:
+#   db/Homo_sapiens_3BP_HEK293_full.db
+# or keep full databases outside this repo and mount them at runtime.
+*_full.db
+db/*
+!db/README.txt
+New folder/
+transcript_sequences/*
+!transcript_sequences/README.txt
+*.tar

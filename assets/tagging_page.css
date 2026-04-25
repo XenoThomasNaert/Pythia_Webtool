@@ -1,0 +1,1522 @@
+/* ============================================================
+   ROOT VARIABLES
+   ============================================================ */
+:root {
+    /* Height of the top header; adjust if needed */
+    --persistent-header-height: 40px;
+    --tagging-bar-offset: 40px;
+}
+
+/* ============================================================
+   STICKY TAGGING BAR (host + bar)
+   ============================================================ */
+#tagging-bar-host {
+        position: sticky;
+        top: 140px;
+        z-index: 500;
+        width: 100%;
+        margin: 0 auto;
+        padding: 4px 16px 0;
+        margin-bottom: 0 !important;
+        background: transparent;
+}
+
+.tagging-bar-sticky {
+    position: relative;
+    left: auto;
+    right: auto;
+    z-index: 400;
+    background: #ffffff; /* match other cards */
+    padding: 18px 18px 26px 18px;
+    width: 100% !important;
+    margin: 0 !important;
+    border-radius: 14px;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.12);
+    border: 1px solid rgba(15, 23, 42, 0.05);
+    overflow: visible !important;
+    transition: box-shadow 0.25s ease-out, transform 0.25s ease-out;
+}
+
+
+.tagging-bar {
+    position: relative;
+    overflow: visible !important;
+    z-index: 150;
+    background: transparent;
+    padding: 0;
+    box-shadow: none;
+    border: none;
+    box-sizing: border-box;
+}
+
+/* ============================================================
+   PREVENT CLIPPING ANYWHERE
+   ============================================================ */
+#page-content,
+#mutation-detail-container,
+#gene-table-container {
+    overflow: visible !important;
+    position: relative !important;
+    width: 100%;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#mutation-detail-container {
+    margin-bottom: 0 !important;
+}
+
+#_dash-app-content,
+html>body>div:first-of-type {
+    position: relative !important;
+    z-index: 0 !important;
+    overflow: visible !important;
+}
+
+/* ============================================================
+   SEGMENTS + POPUPS
+   ============================================================ */
+.tagging-seg {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    cursor: pointer;
+    pointer-events: auto !important;
+    z-index: 120 !important;
+    border-radius: 0;
+    overflow: visible;
+    box-sizing: border-box; /* keep borders inside computed width to avoid visual overflow */
+    transition:
+        box-shadow 0.25s ease-out,
+        width 0.35s ease,
+        left 0.35s ease;
+}
+
+/* Rounded ends */
+.tagging-seg:first-child {
+    border-radius: 10px 0 0 10px;
+}
+
+.tagging-seg:last-child {
+    border-radius: 0 10px 10px 0;
+}
+
+.tagging-seg:hover {
+    z-index: 9999 !important;
+    box-shadow: 0 4px 10px rgba(15, 23, 42, 0.35);
+    position: absolute;
+}
+
+/* Only disable pointer events for children of insert segments */
+.tagging-insert-appear>*:not(.insert-layer):not(.repair-template-label),
+.tagging-insert-transition>*:not(.insert-layer):not(.repair-template-label) {
+    pointer-events: none !important;
+}
+
+/* Allow insert-layer children to receive pointer events */
+.tagging-seg .insert-layer {
+    pointer-events: auto !important;
+}
+
+.tagging-seg-popup {
+    position: absolute;
+    top: -32px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(15, 23, 42, 0.92);
+    color: white;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.75em;
+    white-space: nowrap;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none;
+    transition: opacity 0.25s ease-out, visibility 0.25s ease-out;
+    z-index: 10000 !important;
+}
+
+.tagging-seg:hover .tagging-seg-popup {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* ============================================================
+   ARROWS (BASE)
+   ============================================================ */
+.tagging-arrow {
+    position: absolute;
+    cursor: pointer;
+    pointer-events: auto !important;
+    font-size: 1em;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+    transition:
+        opacity 0.25s ease-out,
+        filter 0.25s ease-out,
+        transform 0.25s ease-out;
+}
+
+/* ============================================================
+   OVERVIEW / LOW RANK — GREY NON-TOP15 ARROWS
+   ============================================================ */
+.tagging-arrow.overview-grey {
+    color: #4b5563 !important;
+    opacity: 0.3 !important;
+    filter: grayscale(100%) contrast(0.8) !important;
+    z-index: 100 !important;
+    mix-blend-mode: multiply;
+}
+
+.tagging-arrow.overview-grey:hover {
+    opacity: 1 !important;
+    color: inherit !important;
+    filter: grayscale(0%) contrast(1) !important;
+    z-index: 1000 !important;
+    mix-blend-mode: normal;
+    transform: translateX(-50%) translateY(-6px) !important;
+}
+
+/* ============================================================
+   ZOOM MODE — COLORED BUT FADED NON-SELECTED ARROWS
+   ============================================================ */
+.tagging-arrow.zoom-muted {
+    opacity: 0.22 !important;
+    /* faint */
+    filter: brightness(0.10) !important;
+    /* slight darken, KEEP COLOR */
+    pointer-events: auto !important;
+}
+
+
+.tagging-arrow.zoom-muted:hover {
+    opacity: 1 !important;
+    filter: brightness(1.05) !important;
+    /* small highlight */
+    transform: translateX(-50%) translateY(-4px) !important;
+    z-index: 1000 !important;
+}
+
+
+.tagging-arrow.zoom-muted:hover {
+    opacity: 1 !important;
+    filter: saturate(100%) brightness(1.05) !important;
+    z-index: 1000 !important;
+    transform: translateX(-50%) translateY(-4px) !important;
+}
+
+/* ============================================================
+   HOVER LIFT (no scale)
+   ============================================================ */
+.hover-lift:hover {
+    transform: translateX(-50%) translateY(-4px);
+    z-index: 1200 !important;
+}
+
+/* ============================================================
+   SELECTED ARROW BOUNCE
+   ============================================================ */
+.tagging-arrow.active-arrow {
+    animation: arrow-bounce 0.45s ease-out;
+}
+
+@keyframes arrow-bounce {
+    0% {
+        transform: translateX(-50%) translateY(0px);
+    }
+
+    40% {
+        transform: translateX(-50%) translateY(-6px);
+    }
+
+    100% {
+        transform: translateX(-50%) translateY(0px);
+    }
+}
+
+/* ============================================================
+   TOOLTIPS
+   ============================================================ */
+.arrow-tooltip {
+    position: absolute;
+    left: 50%;
+    background: rgba(15, 23, 42, 0.95);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.75em;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.2s ease-out;
+    z-index: 9999 !important;
+}
+
+.arrow-tooltip-top {
+    bottom: 100%;
+    margin-bottom: 3px;
+    transform: translateX(-50%);
+}
+
+.arrow-tooltip-bottom {
+    top: 100%;
+    margin-top: 6px;
+    transform: translateX(-50%);
+}
+
+.tagging-arrow:hover .arrow-tooltip {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* ============================================================
+   CUTLINES + GLOW
+   ============================================================ */
+.tagging-cutgap {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background-color: #ffffff;
+    border-left: 1px solid rgba(15, 23, 42, 0.55);
+    border-right: 1px solid rgba(15, 23, 42, 0.55);
+    pointer-events: none !important;
+    z-index: 100;
+    transition: left 0.35s ease;
+}
+
+.tagging-cutglow {
+    background: rgba(56, 189, 248, 0.22);
+    filter: blur(14px);
+    pointer-events: none !important;
+    z-index: 90;
+    transition: left 0.35s ease;
+}
+
+/* ============================================================
+   INSERT PATTERN - Diagonal stripes overlay
+   ============================================================ */
+.insert-pattern {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: repeating-linear-gradient(45deg, rgba(0,0,0,0.18) 0px, rgba(0,0,0,0.18) 1px, transparent 1px, transparent 4px);
+    pointer-events: none;
+    z-index: 100 !important;
+}
+
+/* ============================================================
+   REPAIR TEMPLATE INSERT BLOCK - Allow overflow for popups
+   ============================================================ */
+.tagging-insert-appear {
+    overflow: visible !important;
+}
+
+/* Disable default segment popups for insert segments only */
+.tagging-insert-transition .tagging-seg-popup,
+.tagging-insert-transition .tagging-inline-label:not(.repair-template-label),
+.tagging-insert-appear .tagging-seg-popup,
+.tagging-insert-appear .tagging-inline-label:not(.repair-template-label) {
+    display: none !important;
+}
+
+.tagging-insert-transition:hover .tagging-seg-popup,
+.tagging-insert-transition:hover .tagging-inline-label:not(.repair-template-label),
+.tagging-insert-appear:hover .tagging-seg-popup,
+.tagging-insert-appear:hover .tagging-inline-label:not(.repair-template-label) {
+    display: none !important;
+}
+
+/* EXCEPTION: Allow insert-layer-popup to show (not affected by above rules) */
+.insert-layer-popup {
+    display: block !important;
+}
+
+/* Repair template label styling - visible text without popup */
+.repair-template-label {
+    pointer-events: none !important;
+    z-index: 10001 !important;
+    opacity: 1 !important;
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    color: white !important;
+    font-weight: 600 !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: clip !important;
+    max-width: 100% !important;
+}
+
+/* Insert layers hover pop */
+.insert-layer {
+    position: absolute !important;
+    top: 0;
+    bottom: 0;
+    cursor: pointer !important;
+    pointer-events: auto !important;
+    transition: filter 0.2s ease, box-shadow 0.2s ease, z-index 0s;
+    z-index: 2 !important;
+    overflow: visible !important;
+}
+
+.insert-layer:hover {
+    filter: brightness(1.08) !important;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25) !important;
+    z-index: 9999 !important;
+}
+
+/* Individual popup for each color block */
+.insert-layer-popup {
+    position: absolute !important;
+    top: -28px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    background: rgba(15, 23, 42, 0.92) !important;
+    color: white !important;
+    padding: 4px 8px !important;
+    border-radius: 6px !important;
+    font-size: 0.75em !important;
+    white-space: nowrap !important;
+    pointer-events: none !important;
+    z-index: 10000 !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transition: opacity 0.15s ease, visibility 0.15s ease !important;
+    display: block !important;
+}
+
+.insert-layer:hover .insert-layer-popup {
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: block !important;
+}
+
+/* ============================================================
+   BLUE / GREY ANIMATIONS
+   ============================================================ */
+.tagging-blue-left {
+    animation: appear-blue-left 0.45s ease-out forwards;
+}
+
+/* 🔑 This is the "good" behaviour:
+   left-blue starts full-width and shrinks to final-width at final-left */
+@keyframes appear-blue-left {
+    0% {
+        width: 100%;
+        left: var(--final-left);
+    }
+
+    100% {
+        width: var(--final-width);
+        left: var(--final-left);
+    }
+}
+
+.tagging-insert-appear {
+    animation: slide-in-insert 0.45s ease-out forwards;
+    animation-delay: 0.10s;
+}
+
+@keyframes slide-in-insert {
+    from {
+        width: 0%;
+        opacity: 0;
+        left: var(--initial-left);
+    }
+
+    to {
+        width: var(--final-width);
+        opacity: 1;
+        left: var(--final-left);
+    }
+}
+
+.tagging-grey-appear {
+    animation: fade-in-grey 0.45s ease-out forwards;
+}
+
+@keyframes fade-in-grey {
+    from {
+        width: 0%;
+        opacity: 0;
+    }
+
+    to {
+        width: var(--final-width);
+        opacity: 1;
+    }
+}
+
+/* ============================================================
+   PAGE FADE-IN
+   ============================================================ */
+.tagging-fade {
+    animation: fade-in 0.35s ease-out;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* Delayed fade-in for zoom panels - hides lag after bar animation */
+@keyframes fade-in-delayed {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+
+/* ============================================================
+   ARROW WRAPPER (Handles the sliding movement)
+   ============================================================ */
+.arrow-wrapper {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    transform: translateX(-50%);
+    pointer-events: none;
+    transition: left 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+    left: var(--initial-left);
+}
+
+/* ============================================================
+   STANDARD HOVER (For Top 15 in Overview Mode)
+   ============================================================ */
+/* PLUS STRAND → ABOVE BAR → HOVER UP */
+.tagging-arrow.plus:not(.overview-grey):not(.zoom-muted):hover {
+    transform: translateX(-50%) translateY(-4px) !important;
+    opacity: 1 !important;
+    filter: brightness(1.1) !important;
+    z-index: 1200 !important;
+    cursor: pointer !important;
+}
+
+/* MINUS STRAND → BELOW BAR → HOVER DOWN */
+.tagging-arrow.minus:not(.overview-grey):not(.zoom-muted):hover {
+    transform: translateX(-50%) translateY(4px) !important;
+    opacity: 1 !important;
+    filter: brightness(1.1) !important;
+    z-index: 1200 !important;
+    cursor: pointer !important;
+}
+
+/* Cut label bubble (middle of bar) */
+.cut-label {
+    padding: 1px 5px;
+    border-radius: 4.5px;
+    background: rgba(255, 255, 255, 0.9);
+    font-weight: 600;
+    font-size: 0.55em;
+    z-index: 9999;
+    pointer-events: none;
+    transition: left 0.35s ease, transform 0.35s ease;
+}
+
+.secondary-cut-label {
+    background: rgba(255, 255, 255, 0.8);
+    font-size: 1em;
+    padding: 2px 2px;
+    border-radius: 6px;
+}
+
+
+/* Ensure the base class allows transitions on transform */
+.tagging-arrow {
+    transition:
+        opacity 0.2s ease-out,
+        filter 0.2s ease-out,
+        transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* ============================================================
+   LABEL HANDLING — SMALL SEGMENTS AUTO-HIDE LABEL
+   ============================================================ */
+.tagging-seg>div:first-child:not(.insert-layer) {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 100%;
+    opacity: 0.95;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+}
+
+/* Allow all insert-layer children to show popups */
+.tagging-seg>div.insert-layer {
+    overflow: visible !important;
+}
+
+/* Hide inline label if segment < 6% */
+.tagging-seg.small-seg>div:first-child {
+    opacity: 0;
+}
+
+/* ============================================================
+   CUT GAPS (slightly wider now, already defined above)
+   (No second definition here)
+   ============================================================ */
+
+/* ============================================================
+   INLINE LABEL CLASS
+   ============================================================ */
+.tagging-inline-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    pointer-events: none !important;
+    font-size: 0.75em;
+    color: white;
+    opacity: 0.95;
+    max-width: 100%;
+    width: 100%;
+    text-align: center;
+}
+
+/* hide inline label when segment becomes tiny */
+.small-seg .tagging-inline-label {
+    opacity: 0 !important;
+}
+
+@keyframes appear-blue-left {
+    from {
+        width: var(--start-width);
+        left: var(--final-left);
+    }
+
+    to {
+        width: var(--final-width);
+        left: var(--final-left);
+    }
+}
+
+/* ============================
+   BAR TEXT APPEARANCE
+   ============================ */
+.tagging-inline-label {
+    font-size: 0.90em;
+    /* change HERE */
+    font-weight: 600;
+    /* semi-bold */
+    color: white;
+    /* or black if you want */
+    pointer-events: none;
+    opacity: 0.95;
+}
+
+.tagging-seg-popup {
+    font-size: 0.80em;
+    /* popup label size */
+}
+
+/* If you want popup labels bigger: */
+.tagging-seg-popup {
+    font-size: 0.85em;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+}
+
+.info-label {
+    font-weight: 600;
+    color: #475569;
+}
+
+.info-value {
+    color: #1E293B;
+}
+
+.monospace {
+    font-family: Menlo, "Courier New", monospace;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.info-label {
+    font-weight: 600;
+    color: #475569;
+    margin-right: 8px;
+}
+
+.info-value {
+    color: #1E293B;
+}
+
+.monospace {
+    font-family: Menlo, "Courier New", monospace;
+}
+
+/* REMOVE ALL SPACING FROM INFO ROWS */
+.info-row {
+    margin: 0 !important;
+    padding: 0 !important;
+    line-height: 1.05 !important;
+}
+
+/* REMOVE MARGINS/PADDING INSIDE PANEL */
+.info-panel-container div,
+.info-panel-container p {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Extra-compact layout just for the gRNA info panel */
+.compact-info-panel {
+    font-size: 0.875rem;
+    /* slightly smaller text */
+    line-height: 1.15;
+    /* tighter than global 1.6 */
+}
+
+.compact-info-panel .info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    line-height: 1.05;
+    /* really tight rows */
+    height: 18px;
+    /* hard cap row height */
+}
+
+.compact-info-panel .info-row span {
+    margin: 0;
+    padding: 0;
+}
+
+/* Compact styles specifically for the info panel icons */
+.compact-info-panel .compact-clipboard {
+    padding: 0 !important;
+    margin: 0 4px 0 0;
+    height: 18px;
+    width: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    line-height: 1;
+}
+
+/* Shrink the inner FA icon / svg if present */
+.compact-info-panel .compact-clipboard i,
+.compact-info-panel .compact-clipboard svg {
+    font-size: 12px !important;
+}
+
+.compact-info-panel .compact-download {
+    font-size: 13px;
+    line-height: 1;
+    height: 18px;
+    display: inline-flex;
+    align-items: center;
+}
+
+
+/* ============================================================
+   COMPACT gRNA INFO PANEL – clean, consistent, bigger numbers
+   ============================================================ */
+
+.compact-info-panel {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 12px 14px;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.12);
+    border: 1px solid rgba(15, 23, 42, 0.06);
+
+    flex: 0 0 35%;
+    max-width: 35%;
+    height: 300px;
+    /* match neighbour card / give room */
+    overflow-y: auto;
+    box-sizing: border-box;
+
+    font-size: 1rem;
+    /* single base size */
+    line-height: 1.3;
+}
+
+/* Title (gRNA sequence) – same size, just bold + small gap */
+.compact-info-panel .info-title {
+    margin: 0 0 6px 0;
+    font-weight: 700;
+}
+
+/* Generic row (scores, cut location, etc.) */
+.compact-info-panel .info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin: 10px 0;
+    padding: 0;
+}
+
+.compact-info-panel .info-row span {
+    margin: 0;
+    padding: 0;
+}
+
+/* Repair template row */
+.compact-info-panel .info-row-repair {
+    display: flex;
+    align-items: center;
+    margin: 4px 0 8px 0;
+    padding: 0;
+    gap: 6px;
+}
+
+/* Text styles */
+.compact-info-panel .info-label {
+    font-weight: 500;
+    font-size: 0.98rem;
+    color: #1f2937;
+}
+
+/* Numbers: larger and right aligned */
+.compact-info-panel .info-value {
+    font-weight: 500;
+    font-size: 0.96rem;
+    margin-left: auto;
+    text-align: right;
+    color: #1f2937;
+}
+
+.info-title-row {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+}
+
+.info-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    line-height: 1;
+    margin: 0 !important;
+    display: inline-block;
+    padding: 0;
+}
+
+.grna-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.05;
+    margin: 0 0 4px 0;
+    padding: 0;
+    display: block;
+}
+
+.grna-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+}
+
+.title-copy {
+    height: 20px;
+    width: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.allele-panel {
+    flex: 1 1 60% !important;
+    max-width: 63.2%;
+    min-width: 0;
+}
+
+.allele-title-text {
+    /* Adjust this to push the allele title down manually */
+    display: block;
+    margin-top: 10px !important;
+    margin-bottom: 8px !important;
+}
+
+.info-title-block {
+    display: block;
+    margin: 0;
+    padding: 0;
+    line-height: 1.1;
+    /* Adjust this margin-bottom as needed for the title only */
+    margin-bottom: 2px;
+}
+
+.info-title-row .compact-clipboard {
+    height: 18px;
+    width: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    color: #0f172a;
+    padding: 0;
+    line-height: 1;
+}
+
+.repair-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    justify-content: space-between;
+    margin-bottom: 6px;
+}
+
+.repair-header .info-label,
+.strong-label,
+.compact-info-panel .strong-label {
+    font-weight: 700;
+}
+
+.compact-info-panel .strong-value {
+    font-weight: 700;
+}
+
+/* Neutralize global margin overrides inside allele panel EXCEPT the allele table body */
+.allele-panel div[style*="margin"]:not(.allele-table-body *),
+.allele-panel div[style*="display: flex"]:not(.allele-table-body *) {
+    margin-bottom: 0 !important;
+}
+
+.allele-panel .allele-table-body div[style*="margin"],
+.allele-panel .allele-table-body div[style*="display: flex"],
+.allele-panel .allele-table-body>div {
+    margin-bottom: 1.5rem !important;
+}
+
+/* Override global info-panel reset for allele rows */
+.allele-panel.info-panel-container .allele-table-body div,
+.allele-panel.info-panel-container .allele-table-body p {
+    margin-bottom: 1.5rem !important;
+}
+
+/* Adjustable bar height for allele bars */
+.allele-bar {
+    height: var(--allele-bar-height, 12px);
+}
+
+/* Buttons in info panel */
+.pill-row {
+    display: flex;
+    gap: 8px;
+    margin: 6px 0 10px 0;
+    align-items: center;
+}
+
+.pill-links {
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+    margin-left: auto;
+}
+
+.pill-link {
+    border: none;
+    background: transparent;
+    padding: 0;
+    color: #2e5bff;
+    font-weight: 600;
+    font-size: 0.95rem;
+    line-height: 1.1;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.pill-link:hover {
+    text-decoration: underline;
+}
+
+.pill-sep {
+    color: #94a3b8;
+    font-weight: 600;
+}
+
+/* Buttons in info panel */
+.compact-download {
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid #d7dde6;
+    background: #f8fafc;
+    color: #0f172a;
+    font-weight: 600;
+    font-size: 0.9rem;
+    line-height: 1.1;
+    transition: all 0.15s ease;
+    min-width: 88px;
+    text-align: center;
+}
+
+.compact-download:hover {
+    background: #e2e8f0;
+    border-color: #cbd5e1;
+    color: #0f172a;
+}
+
+/* Icons – aligned with text baseline */
+.compact-info-panel .compact-clipboard,
+.compact-info-panel .compact-download {
+    padding: 0;
+    margin: 0;
+    height: 1.4em;
+    width: 1.4em;
+    display: inline-flex;
+    align-items: center;
+    padding: 0;
+}
+
+.info-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    line-height: 1;
+    margin: 0 !important;
+    display: inline-block;
+    padding: 0;
+}
+
+.grna-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.05;
+    margin: 0 0 4px 0;
+    padding: 0;
+    display: block;
+}
+
+.grna-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+}
+
+.title-copy {
+    height: 20px;
+    width: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.allele-panel {
+    flex: 0 0 70% !important;
+    min-width: 0;
+}
+
+.allele-title-text {
+    /* Adjust this to push the allele title down manually */
+    display: block;
+    margin-top: 10px !important;
+    margin-bottom: 8px !important;
+}
+
+.info-title-block {
+    display: block;
+    margin: 0;
+    padding: 0;
+    line-height: 1.1;
+    /* Adjust this margin-bottom as needed for the title only */
+    margin-bottom: 2px;
+}
+
+.info-title-row .compact-clipboard {
+    height: 18px;
+    width: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    color: #0f172a;
+    padding: 0;
+    line-height: 1;
+}
+
+.repair-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    justify-content: space-between;
+    margin-bottom: 6px;
+}
+
+.repair-header .info-label,
+.strong-label,
+.compact-info-panel .strong-label {
+    font-weight: 700;
+}
+
+.compact-info-panel .strong-value {
+    font-weight: 700;
+}
+
+/* Neutralize global margin overrides inside allele panel EXCEPT the allele table body */
+.allele-panel div[style*="margin"]:not(.allele-table-body *),
+.allele-panel div[style*="display: flex"]:not(.allele-table-body *) {
+    margin-bottom: 0 !important;
+}
+
+.allele-panel .allele-table-body div[style*="margin"],
+.allele-panel .allele-table-body div[style*="display: flex"],
+.allele-panel .allele-table-body>div {
+    margin-bottom: 1.5rem !important;
+}
+
+/* Override global info-panel reset for allele rows */
+.allele-panel.info-panel-container .allele-table-body div,
+.allele-panel.info-panel-container .allele-table-body p {
+    margin-bottom: 1.5rem !important;
+}
+
+/* Adjustable bar height for allele bars */
+.allele-bar {
+    height: var(--allele-bar-height, 12px);
+}
+
+/* Buttons in info panel */
+.pill-row {
+    display: flex;
+    gap: 8px;
+    margin: 6px 0 10px 0;
+    align-items: center;
+}
+
+.pill-links {
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+    margin-left: auto;
+}
+
+.pill-link {
+    border: none;
+    background: transparent;
+    padding: 0;
+    color: #2e5bff;
+    font-weight: 600;
+    font-size: 0.95rem;
+    line-height: 1.1;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.pill-link:hover {
+    text-decoration: underline;
+}
+
+.pill-sep {
+    color: #94a3b8;
+    font-weight: 600;
+}
+
+/* Buttons in info panel */
+.compact-download {
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid #d7dde6;
+    background: #f8fafc;
+    color: #0f172a;
+    font-weight: 600;
+    font-size: 0.9rem;
+    line-height: 1.1;
+    transition: all 0.15s ease;
+    min-width: 88px;
+    text-align: center;
+}
+
+.compact-download:hover {
+    background: #e2e8f0;
+    border-color: #cbd5e1;
+    color: #0f172a;
+}
+
+/* Icons – aligned with text baseline */
+.compact-info-panel .compact-clipboard,
+.compact-info-panel .compact-download {
+    padding: 0;
+    margin: 0;
+    height: 1.4em;
+    width: 1.4em;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    line-height: 1;
+}
+
+/* Optional subtle hover */
+.compact-info-panel .compact-clipboard:hover,
+.compact-info-panel .compact-download:hover {
+    cursor: pointer;
+    filter: brightness(0.9);
+}
+
+/* ============================================================
+   CUSTOM PARAMETER BAR - Full control via CSS
+   ============================================================ */
+.custom-parameter-bar {
+    background-color: white;
+    padding: 0.25em 1.5em;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 1.5em;
+}
+
+/* Buttons in parameter bar */
+.custom-parameter-bar .btn {
+    padding: 2px 8px !important;
+    font-size: 1.1em !important;
+    line-height: 1.2 !important;
+}
+
+/* Spacing for tag length buttons */
+.custom-parameter-bar #tag-6bp {
+    margin-left: 0.5em;
+}
+
+/* Spacing for cell type buttons */
+.custom-parameter-bar #cell-mESC,
+.custom-parameter-bar #cell-HEK293,
+.custom-parameter-bar #cell-K562,
+.custom-parameter-bar #cell-U2OS {
+    margin-right: 0.5em;
+}
+
+.custom-parameter-bar #cell-HCT116 {
+    margin-right: 1em;
+}
+
+/* Separator line */
+.custom-parameter-bar .param-separator {
+    width: 1px;
+    height: 20px;
+    background-color: white;
+    margin: 0 7em;
+}
+
+/* Gene dropdown - 33% smaller */
+.custom-parameter-bar .gene-dropdown-custom {
+    width: 167px; /* 250px * 0.67 = 167px */
+}
+
+.custom-parameter-bar .gene-dropdown-custom .Select-control {
+    font-size: 0.95em; /* Slightly smaller font */
+}
+
+/* ============================================================
+   MODE SELECTION PANEL
+   ============================================================ */
+.mode-selection-panel {
+    display: inline-flex;
+    align-items: center;
+    background-color: #f1f5f9;
+    /* Light slate background */
+    padding: 4px;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+    margin-right: 0.5em;
+}
+
+.mode-selection-panel .btn {
+    margin: 0 2px !important;
+    /* Override previous margins */
+    border: none !important;
+    /* Cleaner look inside panel */
+    background-color: transparent !important;
+    color: #64748b !important;
+    font-weight: 600 !important;
+}
+
+.mode-selection-panel .btn:hover {
+    background-color: #e2e8f0 !important;
+    color: #0f172a !important;
+}
+
+.repair-header .info-label,
+.strong-label,
+.compact-info-panel .strong-label {
+    font-weight: 700;
+}
+
+.compact-info-panel .strong-value {
+    font-weight: 700;
+}
+
+/* Neutralize global margin overrides inside allele panel EXCEPT the allele table body */
+.allele-panel div[style*="margin"]:not(.allele-table-body *),
+.allele-panel div[style*="display: flex"]:not(.allele-table-body *) {
+    margin-bottom: 0 !important;
+}
+
+.allele-panel .allele-table-body div[style*="margin"],
+.allele-panel .allele-table-body div[style*="display: flex"],
+.allele-panel .allele-table-body>div {
+    margin-bottom: 1.5rem !important;
+}
+
+/* Override global info-panel reset for allele rows */
+.allele-panel.info-panel-container .allele-table-body div,
+.allele-panel.info-panel-container .allele-table-body p {
+    margin-bottom: 1.5rem !important;
+}
+
+/* Adjustable bar height for allele bars */
+.allele-bar {
+    height: var(--allele-bar-height, 12px);
+}
+
+/* Buttons in info panel */
+.pill-row {
+    display: flex;
+    gap: 8px;
+    margin: 6px 0 10px 0;
+    align-items: center;
+}
+
+.pill-links {
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+    margin-left: auto;
+}
+
+.pill-link {
+    border: none;
+    background: transparent;
+    padding: 0;
+    color: #2e5bff;
+    font-weight: 600;
+    font-size: 0.95rem;
+    line-height: 1.1;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.pill-link:hover {
+    text-decoration: underline;
+}
+
+.pill-sep {
+    color: #94a3b8;
+    font-weight: 600;
+}
+
+/* Buttons in info panel */
+.compact-download {
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid #d7dde6;
+    background: #f8fafc;
+    color: #0f172a;
+    font-weight: 600;
+    font-size: 0.9rem;
+    line-height: 1.1;
+    transition: all 0.15s ease;
+    min-width: 88px;
+    text-align: center;
+}
+
+.compact-download:hover {
+    background: #e2e8f0;
+    border-color: #cbd5e1;
+    color: #0f172a;
+}
+
+/* Icons – aligned with text baseline */
+.compact-info-panel .compact-clipboard,
+.compact-info-panel .compact-download {
+    padding: 0;
+    margin: 0;
+    height: 1.4em;
+    width: 1.4em;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    line-height: 1;
+}
+
+/* Optional subtle hover */
+.compact-info-panel .compact-clipboard:hover,
+.compact-info-panel .compact-download:hover {
+    cursor: pointer;
+    filter: brightness(0.9);
+}
+
+/* ============================================================
+   CUSTOM PARAMETER BAR - Full control via CSS
+   ============================================================ */
+.custom-parameter-bar {
+    background-color: white;
+    padding: 0.25em 1.5em;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 1.5em;
+}
+
+/* Buttons in parameter bar */
+.custom-parameter-bar .btn {
+    padding: 2px 8px !important;
+    font-size: 1.1em !important;
+    line-height: 1.2 !important;
+}
+
+/* Spacing for tag length buttons */
+.custom-parameter-bar #tag-6bp {
+    margin-left: 0.5em;
+}
+
+/* Spacing for cell type buttons */
+.custom-parameter-bar #cell-mESC,
+.custom-parameter-bar #cell-HEK293,
+.custom-parameter-bar #cell-K562,
+.custom-parameter-bar #cell-U2OS {
+    margin-right: 0.5em;
+}
+
+.custom-parameter-bar #cell-HCT116 {
+    margin-right: 1em;
+}
+
+/* Separator line */
+.custom-parameter-bar .param-separator {
+    width: 1px;
+    height: 20px;
+    background-color: white;
+    margin: 0 7em;
+}
+
+/* Gene dropdown - 33% smaller */
+.custom-parameter-bar .gene-dropdown-custom {
+    width: 167px; /* 250px * 0.67 = 167px */
+}
+
+.custom-parameter-bar .gene-dropdown-custom .Select-control {
+    font-size: 0.95em; /* Slightly smaller font */
+}
+
+/* ============================================================
+   MODE SELECTION PANEL
+   ============================================================ */
+.mode-selection-panel {
+    display: inline-flex;
+    align-items: center;
+    background-color: #f1f5f9;
+    /* Light slate background */
+    padding: 4px;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+    margin-right: 0.5em;
+}
+
+.mode-selection-panel .btn {
+    margin: 0 2px !important;
+    /* Override previous margins */
+    border: none !important;
+    /* Cleaner look inside panel */
+    line-height: 26px !important;
+    padding: 0 !important;
+}
+
+.slim-dropdown .Select-arrow-zone {
+    width: 20px !important;
+}
+
+.slim-dropdown .Select-arrow {
+    border-color: #64748b transparent transparent !important;
+    border-width: 4px 4px 2.5px !important;
+    top: 10px !important;
+    /* Adjust arrow position */
+}
+
+/* Dropdown menu styling */
+.slim-dropdown .Select-menu-outer {
+    border-radius: 4px !important;
+    border: 1px solid #e2e8f0 !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+    margin-top: 4px !important;
+}
+
+.slim-dropdown .Select-option {
+    padding: 6px 8px !important;
+    font-size: 0.9em !important;
+}
+
+/* ============================================================
+   DASH TABS - Force consistent padding/margin/border to 0
+   ============================================================ */
+#custom-sequence-tabs .tab-content,
+#custom-sequence-tabs .tab-parent,
+#custom-sequence-tabs > div,
+#custom-sequence-tabs > div > div {
+    padding: 0 !important;
+    margin: 0 !important;
+    border: 0 !important;
+}
+
+/* Target the actual tab content containers */
+#custom-sequence-tabs [role="tabpanel"],
+#custom-sequence-tabs .tab--selected,
+#custom-sequence-tabs div[class*="tab"] {
+    padding: 0 !important;
+    margin: 0 !important;
+    border: 0 !important;
+}
+
+/* Override all Dash tab-related padding/margin/border */
+.tab-content,
+.tab-parent,
+[role="tabpanel"] {
+    padding: 0 !important;
+    margin: 0 !important;
+    border: 0 !important;
+}
+
+/* README flex card hover pop */
+.readme-flex {
+    width: 100%;
+}
+
+.readme-flex > div {
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.readme-flex > div:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}

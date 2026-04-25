@@ -1,0 +1,58 @@
+# inDelphi — cloned at runtime, not distributed
+Indelphi_installation/
+
+# Full gRNA databases — sample DBs are baked into the image instead
+db/full_db/*.db
+!db/*_sample.db
+
+# DB utility scripts — not needed at runtime
+db/db_head.py
+db/ensemble.py
+db/run_optimize.py
+db/update_gene_ids.py
+
+# Standalone scripts with no imports in the app — not needed at runtime
+Pythia_IntronTagger.py
+Pythia_editing_nosolution.py
+test_connection_toggle.py
+
+# Documentation
+README.md
+README.txt
+
+# Python artifacts
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.python-version
+*.so
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+.env
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# IDE / OS noise
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Misc
+*.log
+*.tmp
+temp/
+.claude/
+
+# Backup/alternate requirements files
+requirements_backup.txt
+requirements_clean.txt
+requirements_pip.txt

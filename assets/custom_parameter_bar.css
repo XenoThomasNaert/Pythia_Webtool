@@ -1,0 +1,160 @@
+/* ============================================================
+   CUSTOM PARAMETER BAR - Full control via CSS
+   ============================================================ */
+.custom-parameter-bar {
+    background-color: white;
+    padding: 0.25em 1.25em;
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 0.75em;
+    width: 100%;
+    box-sizing: border-box;
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 1.5em;
+}
+
+/* Buttons in parameter bar */
+.custom-parameter-bar .btn {
+    font-size: 0.95em !important;
+    line-height: 1 !important;
+    min-height: 30px !important;
+    border-radius: 6px !important;
+}
+
+/* Spacing for tag length buttons */
+.custom-parameter-bar #tag-6bp {
+    margin-left: 0.5em;
+}
+
+/* Spacing for cell type buttons */
+.custom-parameter-bar #cell-mESC,
+.custom-parameter-bar #cell-HEK293,
+.custom-parameter-bar #cell-K562,
+.custom-parameter-bar #cell-U2OS {
+    margin-right: 0.5em;
+}
+
+.custom-parameter-bar #cell-HCT116 {
+    margin-right: 1em;
+}
+
+/* Separator line */
+.custom-parameter-bar .param-separator {
+    width: 1px;
+    height: 20px;
+    background-color: white;
+    margin: 0 10em;
+}
+
+/* Gene dropdown */
+.custom-parameter-bar .gene-dropdown-custom {
+    width: 210px;
+}
+
+.custom-parameter-bar .gene-dropdown-custom .Select-control {
+    font-size: 0.95em;
+    min-height: 30px;
+    line-height: 28px;
+    padding: 0 8px;
+}
+
+/* Transcript dropdown - same width as gene dropdown */
+.custom-parameter-bar .transcript-dropdown-custom {
+    width: 170px;
+}
+
+.custom-parameter-bar .transcript-dropdown-custom .Select-control {
+    font-size: 0.95em;
+    min-height: 30px;
+    line-height: 28px;
+    padding: 0 8px;
+}
+
+/* ============================================================
+   DROPDOWN ALIGNMENT FIXES
+   ============================================================ */
+/* Target the dash-dropdown wrapper that Dash automatically creates */
+.custom-parameter-bar .dash-dropdown {
+    margin-bottom: 0 !important;
+    margin-top: 0 !important;
+}
+
+/* Ensure all dropdowns align vertically with buttons */
+.custom-parameter-bar .slim-dropdown,
+.custom-parameter-bar .gene-dropdown-custom {
+    margin-bottom: 0 !important;
+    margin-top: 0 !important;
+}
+
+/* Remove any default spacing from the Select wrapper */
+.custom-parameter-bar .Select {
+    margin-bottom: 0 !important;
+}
+
+/* Align the dropdown controls themselves */
+.custom-parameter-bar .Select-control {
+    margin-bottom: 0 !important;
+    min-height: 38px !important;
+    height: 38px !important;
+    line-height: 37px !important;
+    padding: 0 0 0 8px !important; /* keep left padding, remove right */
+    box-sizing: border-box !important;
+    cursor: pointer !important;
+}
+
+.custom-parameter-bar .Select-value,
+.custom-parameter-bar .Select-placeholder {
+    line-height: 37px !important;
+}
+
+/* Keep input active so the whole control is clickable */
+.custom-parameter-bar .Select-input {
+    display: inline-block !important;
+}
+
+.custom-parameter-bar .Select-input input {
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    color: transparent !important;
+}
+
+/* Push dropdown block to the right, keeping mode buttons on the left */
+#species-dropdown {
+    margin-left: auto;
+    width: 170px;
+}
+
+#cell-type-dropdown {
+    width: 140px;
+}
+
+/* Keep dropdowns from overlapping and align them on the right */
+.custom-parameter-bar .dash-dropdown {
+    flex: 0 0 auto;
+    margin: 0 0.08em 0 0;
+    display: inline-flex;
+    align-items: center;
+}
+
+#cell-type-dropdown,
+#gene-dropdown-tagging {
+    margin-left: 0.08em;
+}
+
+/* Prevent dropdown clipping by enforcing box sizing */
+.custom-parameter-bar .Select,
+.custom-parameter-bar .Select-control,
+.custom-parameter-bar .Select-input > input {
+    box-sizing: border-box !important;
+}
+
+/* Extra gap only when dropdowns follow another dropdown */
+.custom-parameter-bar .dash-dropdown + .dash-dropdown {
+    margin-left: 0.08em;
+}

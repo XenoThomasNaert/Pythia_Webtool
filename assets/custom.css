@@ -1,0 +1,107 @@
+/* ── Info icon tooltip (CSS-only, navigation-safe) ─────────────────────── */
+.info-tooltip-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    color: #9CA3AF;
+    font-size: 0.85rem;
+    margin-left: 0.45em;
+    vertical-align: middle;
+}
+
+.info-tooltip-box {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    margin-top: 0.4em;
+    background: #ffffff;
+    border: 1px solid #E5E7EB;
+    border-radius: 6px;
+    padding: 1em 1.1em;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.13);
+    z-index: 9999;
+    width: 520px;
+    pointer-events: none;
+}
+
+.info-tooltip-wrapper:hover .info-tooltip-box {
+    display: block;
+}
+
+/* ── Inline loading spinner */
+.inline-spinner {
+    width: 48px;
+    height: 48px;
+    border: 5px solid #e2e8f0;
+    border-top-color: #2E5BFF;
+    border-radius: 50%;
+    animation: inline-spin 0.8s linear infinite;
+    margin: 0 auto;
+}
+
+@keyframes inline-spin {
+    to { transform: rotate(360deg); }
+}
+
+/* White spinner variant for use on coloured (blue) button backgrounds */
+.inline-spinner-white {
+    width: 48px;
+    height: 48px;
+    border: 5px solid rgba(255, 255, 255, 0.35);
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: inline-spin 0.8s linear infinite;
+    margin: 0 auto;
+}
+
+/* Hover effects for clickable feature cards on landing page */
+.feature-card {
+    transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px) !important;
+    box-shadow: 0 10px 25px rgba(46, 91, 255, 0.15) !important;
+    border-color: #2E5BFF !important;
+}
+
+/* Tooltip styles for info icons */
+.tooltip-container:hover .tooltip-text {
+    visibility: visible !important;
+    opacity: 1;
+    transition: opacity 0.3s;
+}
+
+.tooltip-text {
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+/* University logo positioning overrides */
+.university-logo-uzh {
+    padding-top: 3em !important;
+    padding-right: 2em !important;
+    margin-top: 0 !important;
+    margin-right: 2.5em !important;
+    margin-bottom: 0 !important;
+    margin-left: 0 !important;
+}
+
+.university-logo-eth {
+    padding-top: 4.5em !important;
+    padding-right: 1em !important;
+    margin-top: 0 !important;
+    margin-right: 2.5em !important;
+    margin-bottom: 0 !important;
+    margin-left: 0 !important;
+}
+
+.university-logo-ugent {
+    padding-top: 1em !important;
+    margin-top: 0 !important;
+    margin-right: 0 !important;
+    margin-bottom: 2em !important;
+    margin-left: 0 !important;
+}
